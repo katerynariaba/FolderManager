@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderManager.API", "FolderManager.API\FolderManager.API.csproj", "{5FFF7F51-FCB2-4D51-98C8-43F37D02107D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderManager.Db", "FolderManager.Db\FolderManager.Db.csproj", "{5FE5C8FB-01B3-42D4-8EA1-E71CCEBC54BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderManager.Domain", "FolderManager.Domain\FolderManager.Domain.csproj", "{C3C0FC1E-7163-414D-A83B-78368F7ACC2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{5FFF7F51-FCB2-4D51-98C8-43F37D02107D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FFF7F51-FCB2-4D51-98C8-43F37D02107D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FFF7F51-FCB2-4D51-98C8-43F37D02107D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FE5C8FB-01B3-42D4-8EA1-E71CCEBC54BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FE5C8FB-01B3-42D4-8EA1-E71CCEBC54BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FE5C8FB-01B3-42D4-8EA1-E71CCEBC54BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FE5C8FB-01B3-42D4-8EA1-E71CCEBC54BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3C0FC1E-7163-414D-A83B-78368F7ACC2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C0FC1E-7163-414D-A83B-78368F7ACC2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C0FC1E-7163-414D-A83B-78368F7ACC2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C0FC1E-7163-414D-A83B-78368F7ACC2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
