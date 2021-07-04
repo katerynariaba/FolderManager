@@ -1,4 +1,6 @@
 using FolderManager.Db.Db;
+using FolderManager.Domain.Services.Abstract;
+using FolderManager.Domain.Services.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace FolderManager.API
+namespace FolderManager.Api
 {
     public class Startup
     {
@@ -22,6 +24,8 @@ namespace FolderManager.API
             services.AddControllersWithViews();
 
             services.AddDbContext<FolderManagerDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+
+            services.AddScoped<IFolderService, FolderService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

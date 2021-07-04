@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FolderManager.Db.DomainModels
 {
@@ -9,8 +9,9 @@ namespace FolderManager.Db.DomainModels
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public string Name { get; set; }
-        public string ParentId { get; set; }
         public string Path { get; set; }
-        public IList<Folder> Childrens { get; set; }
+
+        [ForeignKey("ParentId")]
+        public virtual Folder Parent { get; set; }
     }
 }

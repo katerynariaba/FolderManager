@@ -23,35 +23,29 @@ namespace FolderManager.Db.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("FolderId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ParentId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FolderId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Folders");
                 });
 
             modelBuilder.Entity("FolderManager.Db.DomainModels.Folder", b =>
                 {
-                    b.HasOne("FolderManager.Db.DomainModels.Folder", null)
-                        .WithMany("Childrens")
-                        .HasForeignKey("FolderId");
-                });
+                    b.HasOne("FolderManager.Db.DomainModels.Folder", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
 
-            modelBuilder.Entity("FolderManager.Db.DomainModels.Folder", b =>
-                {
-                    b.Navigation("Childrens");
+                    b.Navigation("Parent");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,6 @@
 using System;
 
-namespace FolderManager.API.Models
+namespace FolderManager.Api.Models
 {
     public class ErrorViewModel
     {

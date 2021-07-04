@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FolderManager.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using FolderManager.API.Models;
+using System.Diagnostics;
 
-namespace FolderManager.API.Controllers
+namespace FolderManager.Api.Controllers
 {
     public class HomeController : Controller
     {
