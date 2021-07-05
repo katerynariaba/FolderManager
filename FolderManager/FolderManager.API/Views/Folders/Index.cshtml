@@ -1,67 +1,12 @@
-﻿@model IEnumerable<FolderManager.Db.DomainModels.Folder>
+﻿@model IEnumerable<FolderViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home Page";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Path)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Path)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-<ul id="myUL">
-    <li>
-        <span class="caret">Local Disc</span>
-        <ul class="nested">
-            <li>Work</li>
-            <li>Documents</li>
-            <li>
-                <span class="caret">Photos</span>
-                <ul class="nested">
-                    <li>2021</li>
-                    <li>2020</li>
-                    <li>
-                        <span class="caret">2019</span>
-                        <ul class="nested">
-                            <li>London</li>
-                            <li>Munich</li>
-                            <li>Warsaw</li>
-                            <li>HB</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-</ul>
+<div class="text-center">
+    <p>index page</p>
+    @{
+        await Html.RenderPartialAsync("../TreeView/_TreeView", Model);
+    }
+</div>

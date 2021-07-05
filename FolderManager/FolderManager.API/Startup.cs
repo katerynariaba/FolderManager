@@ -1,3 +1,4 @@
+using AutoMapper;
 using FolderManager.Db.Db;
 using FolderManager.Domain.Services.Abstract;
 using FolderManager.Domain.Services.Concrete;
@@ -24,6 +25,14 @@ namespace FolderManager.Api
             services.AddControllersWithViews();
 
             services.AddDbContext<FolderManagerDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddScoped<IFolderService, FolderService>();
         }

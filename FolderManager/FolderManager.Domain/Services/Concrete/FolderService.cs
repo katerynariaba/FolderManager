@@ -3,7 +3,6 @@ using FolderManager.Db.DomainModels;
 using FolderManager.Domain.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FolderManager.Domain.Services.Concrete
@@ -17,25 +16,35 @@ namespace FolderManager.Domain.Services.Concrete
             _context = context;
         }
 
+        public async Task AddDataAsync(List<Folder> data)
+        {
+            foreach (Folder folder in data)
+            {
+                await _context.AddAsync(folder);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IList<Folder>> GetAllAsync()
         {
             return await _context.Folders.ToListAsync();
         }
 
-        public async Task<IList<Folder>> GetRootAsync()
-        {
-            return await _context.Folders
-                .Include(r => r.Parent)
-                .Where(r => r.Id == r.Parent.Id)
-                .ToListAsync();
-        }
+        //public async Task<IList<Folder>> GetRootAsync()
+        //{
+        //    return await _context.Folders
+        //        .Include(r => r.Parent)
+        //        .Where(r => r.Id == r.Parent.Id)
+        //        .ToListAsync();
+        //}
 
-        public async Task<IList<Folder>> GetChildrenAsync(string id)
-        {
-            return await _context.Folders
-                .Include(r => r.Parent)
-                .Where(r => r.Parent.Id == id && r.Id != id)
-                .ToListAsync();
-        }
+        //public async Task<IList<Folder>> GetChildrenAsync(string id)
+        //{
+        //    return await _context.Folders
+        //        .Include(r => r.Parent)
+        //        .Where(r => r.Parent.Id == id && r.Id != id)
+        //        .ToListAsync();
+        //}
     }
 }
