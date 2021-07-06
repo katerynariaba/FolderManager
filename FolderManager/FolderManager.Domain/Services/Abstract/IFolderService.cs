@@ -7,8 +7,10 @@ namespace FolderManager.Domain.Services.Abstract
     public interface IFolderService
     {
         public Task<IList<Folder>> GetAllAsync();
-        //public Task<IList<Folder>> GetRootAsync();
-        //public Task<IList<Folder>> GetChildrenAsync(string id);
-        public Task AddDataAsync(List<Folder> data);
+        public Task DeleteAsync(string id);
+        public Task DeleteChildrenAsync(string id);
+        public Task AddAsync(Folder folder);
+        public Task<Folder> GetByIdAsync(string id);
+        public Task UpdateAsync(Folder folder);
     }
 }

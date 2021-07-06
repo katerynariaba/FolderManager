@@ -1,0 +1,44 @@
+﻿ul, #myUL {
+    list-style-type: none;
+}
+
+#myUL {
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+    text-align: left;
+}
+
+#myUL li {
+    padding: 5px;
+}
+
+#myUL li:hover {
+    background-color: #f4f4f4;
+    border-color: #f4f4f4;
+    border-radius: 5px;
+}
+
+.caret {
+    cursor: pointer;
+}
+
+.caret::before {
+    content: "\27A4";
+    color: #5b5151;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.caret-down::before {
+    transform: rotate(90deg);
+}
+
+.nested {
+    display: none;
+    padding: 10px;
+}
+
+.active {
+    display: block;
+}

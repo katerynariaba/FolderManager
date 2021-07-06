@@ -1,80 +1,25 @@
 ﻿@model IEnumerable<FolderViewModel>
 
-<style>
-    /* Remove default bullets */
-    ul, #myUL {
-        list-style-type: none;
-        border: 0.5px gray;
-        border-radius: 5px;
-        padding: 10px;
-    }
-
-    /* Remove margins and padding from the parent ul */
-    #myUL {
-        margin: 0;
-        padding: 0;
-        padding: 10px;
-    }
-
-    /* Style the caret/arrow */
-    .caret {
-        cursor: pointer;
-        user-select: none; /* Prevent text selection */
-    }
-
-        /* Create the caret/arrow with a unicode, and style it */
-        .caret::before {
-            content: "\25B6";
-            color: black;
-            display: inline-block;
-            margin-right: 6px;
-        }
-
-    /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
-    .caret-down::before {
-        transform: rotate(90deg);
-    }
-
-    /* Hide the nested list */
-    .nested {
-        display: none;
-        border: 1px solid gray;
-        border-radius: 5px;
-        padding: 10px;
-    }
-
-    /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
-    .active {
-        display: block;
-    }
-</style>
-
-
+    <div>
+        <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
+            +
+        </button>
+        <button type="button" class="btn btn-light" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
+            sort all
+        </button>
+        <button type="button" class="btn btn-light" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
+            open all
+        </button>
+    </div>
 <ul id="myUL" style="text-align: left;">
     @foreach (var child in Model ?? new List<FolderViewModel>())
     {
         @if (child.Parent == null)
         {
             await Html.RenderPartialAsync("../TreeView/_TreeNode", child);
-
-            <p>
-                <a asp-action="Edit" asp-route-id="@child.Id">Edit</a>
-                <a asp-action="Details" asp-route-id="@child.Id">Details</a>
-                <a asp-action="Delete" asp-route-id="@child.Id">Delete</a>
-            </p>
         }
     }
 </ul>
 
+<div id="modal-placeholder"></div>
 
-    <script>
-        var toggler = document.getElementsByClassName("caret");
-        var i;
-
-        for (i = 0; i < toggler.length; i++) {
-            toggler[i].addEventListener("click", function () {
-                this.parentElement.querySelector(".nested").classList.toggle("active");
-                this.classList.toggle("caret-down");
-            });
-        }
-    </script>

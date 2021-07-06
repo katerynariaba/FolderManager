@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<FolderViewModel>
 
 @{
-    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+    ViewData["Title"] = "FolderManager";
 }
 
-<div class="text-center">
+<div class="tree-view">
     @{
         await Html.RenderPartialAsync("../TreeView/_TreeView", Model);
     }

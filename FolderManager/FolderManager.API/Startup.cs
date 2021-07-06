@@ -24,7 +24,8 @@ namespace FolderManager.Api
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<FolderManagerDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+            services.AddDbContext<FolderManagerDbContext>(item => item
+            .UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
 
             var mappingConfig = new MapperConfiguration(mc =>
             {
