@@ -1,6 +1,6 @@
 # Folder Manager based on ASP.NET Core MVC 3.1
 
-This project is a software for managing a tree view folder structure
+This project is a simplistic MVC web app that managers a tree-like structure of folders
 
 ## Prerequirements
 
@@ -10,5 +10,6 @@ This project is a software for managing a tree view folder structure
 ## How To Run
 
 * Open solution in Visual Studio 2019.
-* Identify "ConnectionString"
+* Specify "ConnectionString"
+* (Optional) Restore the DB from the dump
 * Run the application.
