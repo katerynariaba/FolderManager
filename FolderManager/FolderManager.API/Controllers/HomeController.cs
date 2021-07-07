@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FolderManager.Api.Models;
+using FolderManager.Domain.Models;
 using FolderManager.Domain.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

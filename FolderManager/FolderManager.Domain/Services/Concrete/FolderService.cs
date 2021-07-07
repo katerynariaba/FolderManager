@@ -1,4 +1,5 @@
-﻿using FolderManager.Db.Db;
+﻿using FolderManager.Domain.Models;
+using FolderManager.Db.Db;
 using FolderManager.Db.DomainModels;
 using FolderManager.Domain.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
@@ -51,35 +52,18 @@ namespace FolderManager.Domain.Services.Concrete
         public async Task AddAsync(Folder folder)
         {
             folder.Id = Guid.NewGuid().ToString();
-            if (folder.Parent == null)
-            {
-                folder.Path = folder.Id;
-            }
-            else
-            {
-                folder.Path = folder.Parent.Path + "/" + folder.Id;
-
-            }
+            folder.Path = folder.Parent == null ? folder.Id :
+                $"{folder.Parent.Path}/{folder.Id}";
 
             await _context.Folders.AddAsync(folder);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Folder folder, string parentId)
+        public async Task UpdateAsync(FolderEditModel newFolder)
         {
-            var parent = _context.Folders.Find(parentId);
-            folder.Parent = parent;
-
-            if (folder.Parent == null)
-            {
-                folder.Path = folder.Id;
-            }
-            else
-            {
-                folder.Path = folder.Parent.Path + "/" + folder.Id;
-
-            }
-            _context.Folders.Update(folder);
+            var folder = _context.Folders.Find(newFolder.Id);
+            folder.Name = newFolder.Name;
+            
             await _context.SaveChangesAsync();
         }
 
@@ -96,7 +80,7 @@ namespace FolderManager.Domain.Services.Concrete
             {
                 var oldPath = child.Path;
                 var lastIndex = oldPath.IndexOf(folder.Id) + folder.Id.Length;
-                child.Path = $"{folder.Path}{oldPath.Substring(lastIndex)}";
+                child.Path = $"{folder.Path}{oldPath[lastIndex..]}";
             }
 
             await _context.SaveChangesAsync();

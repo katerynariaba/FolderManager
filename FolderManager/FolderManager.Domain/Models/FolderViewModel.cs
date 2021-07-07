@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FolderManager.Api.Models
+namespace FolderManager.Domain.Models
 {
     public class FolderViewModel
     {

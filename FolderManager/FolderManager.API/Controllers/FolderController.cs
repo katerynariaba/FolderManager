@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using FolderManager.Api.Models;
+using FolderManager.Domain.Models;
 using FolderManager.Db.DomainModels;
 using FolderManager.Domain.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FolderManager.Api.Controllers
@@ -62,19 +61,17 @@ namespace FolderManager.Api.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var folder = await _folderService.GetByIdAsync(id);
-            var folderDto = _mapper.Map<FolderViewModel>(folder);
-            ViewBag.ParentId = folderDto.Parent.Id;
+            var folderDto = _mapper.Map<FolderEditModel>(folder);
+            ViewBag.ParentId = folder.Parent.Id;
 
 
             return PartialView("../Shared/_EditDialog", folderDto);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit(FolderViewModel folderDto, string parentId)
+        public async Task<IActionResult> Edit(FolderEditModel folderDto)
         {
-            var folder = _mapper.Map<Folder>(folderDto);
-
-            await _folderService.UpdateAsync(folder, parentId);
+            await _folderService.UpdateAsync(folderDto);
 
             return View("../Home/Index");
         }
@@ -82,21 +79,17 @@ namespace FolderManager.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Move(string id)
         {
-            var folder = await _folderService.GetByIdAsync(id);
-            var folderDto = _mapper.Map<FolderViewModel>(folder);
-
             var folders = await _folderService.GetAllAsync();
-            var foldersDto = _mapper.Map<List<FolderViewModel>>(folders);
 
-            ViewBag.folders = new SelectList(foldersDto, "Id", "Name");
+            ViewBag.Folders = new SelectList(folders, "Id", "Name");
 
-            return PartialView("../Shared/_MoveDialog", folderDto);
+            return PartialView("../Shared/_MoveDialog", new FolderMoveModel() { FolderId = id });
         }
 
         [HttpPatch]
-        public async Task<IActionResult> Move(FolderViewModel folderDto)
+        public async Task<IActionResult> Move(FolderMoveModel folderDto)
         {
-            await _folderService.MoveAsync(folderDto.Id, "73acd9e5-2b6b-4ae5-b678-807de109288d");
+            await _folderService.MoveAsync(folderDto.FolderId, folderDto.NewParent);
 
             return View("../Home/Index");
         }

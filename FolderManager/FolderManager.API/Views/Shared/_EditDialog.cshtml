@@ -1,4 +1,4 @@
-﻿@model FolderViewModel
+﻿@model FolderManager.Domain.Models.FolderEditModel
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -12,12 +12,9 @@
             <div class="modal-body">
                 <form action="Folder/Edit?parentId=@ViewBag.ParentId" http-method="put" name="creating">
                     <span>Edit '@(Model.Name)'?</span>
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
                     <div class="form-group">
                         <input type="hidden" asp-for="@Model.Id" />
-                        <label asp-for="Name" class="control-label">Name</label>
-                        <input asp-for="Name" class="form-control" name="name" id="name" />
+                        <input type="text" asp-for="Name" class="form-control" name="name" id="name" />
                     </div>
                     <button type="submit" class="btn btn-warning" data-save="modal">Edit</button>
                 </form>
@@ -25,10 +22,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
+            </div>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

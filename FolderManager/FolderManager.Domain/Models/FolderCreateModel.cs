@@ -1,4 +1,4 @@
-﻿namespace FolderManager.Api.Models
+﻿namespace FolderManager.Domain.Models
 {
     public class FolderCreateModel
     {

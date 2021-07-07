@@ -1,4 +1,4 @@
-﻿@model FolderViewModel
+﻿@model FolderManager.Domain.Models.FolderMoveModel
 
 <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -12,11 +12,11 @@
             <div class="modal-body">
                 <form action="Folder/Move?newParentId=###" http-method="patch">
                     <div class="form-group">
-                        <input type="hidden" asp-for="@Model.Id" />
+                        <input type="hidden" asp-for="@Model.FolderId" />
                     </div>
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label"></label>
-                        <select id="ddlFolders" asp-for="Id" class="form-control" asp-items="@ViewBag.folders" value="@ViewBag.folders"></select>
+                        <label asp-for="@Model.NewParent" class="control-label"></label>
+                        <select id="ddlFolders" asp-for="@Model.NewParent" class="form-control" asp-items="@ViewBag.Folders"></select>
                     </div>
                 </form>
             </div>

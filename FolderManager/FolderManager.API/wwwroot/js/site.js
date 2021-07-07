@@ -19,11 +19,10 @@
 
         var validator = $("form[name='creating']").validate({
             rules: {
-                name: "required",
-                maxlength: 30
-            },
-            messages: {
-                name: "Please enter name"
+                name: {
+                    required: true,
+                    maxlength: 30
+                }
             },
             submitHandler: function (form) {
                 form.submit();

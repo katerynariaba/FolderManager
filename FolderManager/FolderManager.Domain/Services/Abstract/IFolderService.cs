@@ -1,4 +1,5 @@
-﻿using FolderManager.Db.DomainModels;
+﻿using FolderManager.Domain.Models;
+using FolderManager.Db.DomainModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace FolderManager.Domain.Services.Abstract
         public Task DeleteAsync(string id);
         public Task AddAsync(Folder folder);
         public Task<Folder> GetByIdAsync(string id);
-        public Task UpdateAsync(Folder folder, string parentId);
+        public Task UpdateAsync(FolderEditModel folder);
         public Task MoveAsync(string id, string newParentId);
     }
 }
