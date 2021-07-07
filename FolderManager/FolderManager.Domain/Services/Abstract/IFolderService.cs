@@ -12,6 +12,6 @@ namespace FolderManager.Domain.Services.Abstract
         public Task DeleteAsync(string id);
         public Task AddAsync(Folder folder);
         public Task<Folder> GetByIdAsync(string id);
-        public Task UpdateAsync(Folder folder);
+        public Task UpdateAsync(Folder folder, string parentId);
     }
 }

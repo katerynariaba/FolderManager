@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="Home/Edit" http-method="post">
+                <form action="Folder/Edit?parentId=@ViewBag.ParentId" http-method="post">
                     <span>Edit '@(Model.Name)'?</span>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 

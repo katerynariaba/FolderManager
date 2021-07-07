@@ -45,49 +45,41 @@ namespace FolderManager.Domain.Services.Concrete
         {
             var foldersToRemove = _context.Folders.Where(r => r.Path.Contains(id));
             _context.RemoveRange(foldersToRemove);
-           
-            var folder = await _context.Folders
-                .Include(r => r.Children)
-                .FirstOrDefaultAsync(r => r.Id == id);
-
-             await DeleteChildrenAsync(folder.Children);
-            
-            _context.Folders.Remove(folder);
             await _context.SaveChangesAsync();
-        }
-
-        private async Task DeleteChildrenAsync(IList<Folder> children)
-        {
-           foreach(var child in children)
-            {
-                var innerChildren = await _context.Folders
-                .Where(r => r.Parent.Id == child.Id)
-                .Include(r => r.Children)
-                .ToListAsync();
-
-                await DeleteChildrenAsync(innerChildren);
-
-                _context.Folders.Remove(child);
-            }
         }
 
         public async Task AddAsync(Folder folder)
         {
-            var dbFolder = new Folder
+            folder.Id = Guid.NewGuid().ToString();
+            if (folder.Parent == null)
             {
-                Id = Guid.NewGuid().ToString(),
-                Name = folder.Name,
-                Path = folder.Parent.Path + "/" + folder.Id,
-                Parent = folder.Parent
-            };
+                folder.Path = folder.Id;
+            }
+            else
+            {
+                folder.Path = folder.Parent.Path + "/" + folder.Id;
 
-            await _context.Folders.AddAsync(dbFolder);
+            }
+
+            await _context.Folders.AddAsync(folder);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Folder folder)
+        public async Task UpdateAsync(Folder folder, string parentId)
         {
-             _context.Folders.Update(folder);
+            var parent = _context.Folders.Find(parentId);
+            folder.Parent = parent;
+
+            if (folder.Parent == null)
+            {
+                folder.Path = folder.Id;
+            }
+            else
+            {
+                folder.Path = folder.Parent.Path + "/" + folder.Id;
+
+            }
+            _context.Folders.Update(folder);
             await _context.SaveChangesAsync();
         }
     }

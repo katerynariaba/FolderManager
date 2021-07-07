@@ -10,6 +10,7 @@ namespace FolderManager.Api
         {
             CreateMap<Folder, FolderViewModel>();
             CreateMap<FolderViewModel, Folder>();
+            CreateMap<FolderCreateModel, Folder>();
         }
     }
 }

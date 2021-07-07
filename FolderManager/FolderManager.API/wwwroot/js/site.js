@@ -46,6 +46,9 @@
                 placeholderElement.find('.modal').modal('hide');
                 location.reload();
             }
+            
         });
+        console.log(success);
     });
+
 })

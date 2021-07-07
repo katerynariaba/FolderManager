@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<FolderViewModel>
 
     <div class="main-buttons">
-        <button type="button" class="btn btn-outline-success" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
+        <button type="button" class="btn btn-outline-success" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Folder")">
             <i class="fas fa-folder-plus"></i>
         </button>
-        <button type="button" class="btn btn-outline-secondary" id="buttonSort" data-url="@Url.Action($"Sort", "Home")">
+        <button type="button" class="btn btn-outline-secondary" onclick="sortClick('myUL', 'asc')">
             <i class="fas fa-sort-alpha-down"></i>
         </button>
-        <button type="button" class="btn btn-outline-secondary">
+        <button type="button" class="btn btn-outline-secondary" onclick="sortClick('myUL', 'desc')">
             <i class="fas fa-sort-alpha-up"></i>
         </button>
         <button type="button" class="btn btn-outline-warning" id="open">
@@ -27,3 +27,22 @@
 
 <div id="modal-placeholder"></div>
 
+<script>
+    function sortClick(id, order) {
+        var el = $("#" + id);
+        console.log(id);
+        var items = el.children("li");
+        if (items.length <= 1) return;
+
+        items.sort(sortPredicate).appendTo(el);
+
+        function sortPredicate(a, b) {
+            if (order == 'desc') {
+                return (b.children[0].innerText).localeCompare(a.children[0].innerText);
+            }
+            else {
+                return (a.children[0].innerText).localeCompare(b.children[0].innerText);
+            }
+        }
+    }
+</script>
