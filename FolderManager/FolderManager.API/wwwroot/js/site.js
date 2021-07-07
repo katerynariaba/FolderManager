@@ -36,7 +36,25 @@
         var method = form.attr('http-method');
         var dataToSend = form.serialize();
 
-        var methodName = (method === 'delete') ? 'DELETE' : 'POST';
+        var methodName;
+        switch (method) {
+            case 'delete':
+                methodName = 'DELETE';
+                break;
+            case 'post':
+                methodName = 'POST';
+                break;
+            case 'putch':
+                methodName = 'PUTCH';
+                break;
+            case 'put':
+                methodName = 'PUT';
+                break;
+            default:
+                break;
+        }
+
+        console.log(methodName);
 
         $.ajax({
             url: actionUrl,
@@ -48,7 +66,24 @@
             }
             
         });
-        console.log(success);
     });
 
 })
+
+function sortClick(id, order) {
+    var el = $("#" + id);
+    console.log(id);
+    var items = el.children("li");
+    if (items.length <= 1) return;
+
+    items.sort(sortPredicate).appendTo(el);
+
+    function sortPredicate(a, b) {
+        if (order == 'desc') {
+            return (b.children[0].innerText).localeCompare(a.children[0].innerText);
+        }
+        else {
+            return (a.children[0].innerText).localeCompare(b.children[0].innerText);
+        }
+    }
+}

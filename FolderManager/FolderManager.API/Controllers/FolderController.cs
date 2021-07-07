@@ -67,7 +67,7 @@ namespace FolderManager.Api.Controllers
             return PartialView("../Shared/_EditDialog", folderDto);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Edit(FolderViewModel folderDto, string parentId)
         {
             var folder = _mapper.Map<Folder>(folderDto);
