@@ -1,5 +1,4 @@
 ﻿$(function () {
-    
 
     var toggler = document.getElementsByClassName("caret");
     var i;
@@ -11,9 +10,13 @@
         });
     }
 
-    //function onDeleteClick(id) {
-    //    $('#deleteModal').modal('show');
-    //}
+    $("#open").click(function () {
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].parentElement.querySelector(".nested").classList.toggle("active");
+            toggler[i].classList.toggle("caret-down");
+        }
+     });
+       
 
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal"]').click(function (event) {
@@ -29,6 +32,7 @@
 
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
+        console.log(actionUrl);
         var method = form.attr('http-method');
         var dataToSend = form.serialize();
 

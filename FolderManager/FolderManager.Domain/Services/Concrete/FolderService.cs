@@ -23,38 +23,51 @@ namespace FolderManager.Domain.Services.Concrete
             return await _context.Folders.ToListAsync();
         }
 
+        public async Task<IList<Folder>> GetOrderAsync()
+        {
+            return await _context.Folders.OrderBy(r => r.Name).ToListAsync();
+        }
+
+        public async Task<IList<Folder>> GetOrderDescendingAsync()
+        {
+            return await _context.Folders.OrderByDescending(r => r.Name).ToListAsync();
+        }
+
         public async Task<Folder> GetByIdAsync(string id)
         {
-            return await _context.Folders.FindAsync(id);
+            return await _context.Folders
+                .Include(r => r.Children)
+                .Include(r => r.Parent)
+                .FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task DeleteAsync(string id)
         {
+            var foldersToRemove = _context.Folders.Where(r => r.Path.Contains(id));
+            _context.RemoveRange(foldersToRemove);
+           
             var folder = await _context.Folders
                 .Include(r => r.Children)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
-            if(folder.Children.Count > 0)
-            {
-                await DeleteChildrenAsync(folder.Id);
-            }
+             await DeleteChildrenAsync(folder.Children);
             
             _context.Folders.Remove(folder);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteChildrenAsync(string id)
+        private async Task DeleteChildrenAsync(IList<Folder> children)
         {
-            var children = await _context.Folders
-                .Where(r => r.Parent.Id == id)
+           foreach(var child in children)
+            {
+                var innerChildren = await _context.Folders
+                .Where(r => r.Parent.Id == child.Id)
                 .Include(r => r.Children)
                 .ToListAsync();
-            
-            foreach (var child in children)
-            {
-                await DeleteChildrenAsync(child.Id);
+
+                await DeleteChildrenAsync(innerChildren);
+
                 _context.Folders.Remove(child);
-                await _context.SaveChangesAsync();
             }
         }
 
@@ -66,7 +79,6 @@ namespace FolderManager.Domain.Services.Concrete
                 Name = folder.Name,
                 Path = folder.Parent.Path + "/" + folder.Id,
                 Parent = folder.Parent
-
             };
 
             await _context.Folders.AddAsync(dbFolder);

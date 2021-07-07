@@ -5,7 +5,7 @@
 #myUL {
     margin: 0;
     padding: 0;
-    font-size: 25px;
+    font-size: 20px;
     text-align: left;
 }
 
@@ -19,15 +19,20 @@
     border-radius: 5px;
 }
 
+#myUL .tree-buttons{
+    align-content: flex-end;
+}
+
 .caret {
     cursor: pointer;
 }
 
 .caret::before {
-    content: "\27A4";
+    content: "\003E";
     color: #5b5151;
     display: inline-block;
     margin-right: 15px;
+    font-size: 20px;
 }
 
 .caret-down::before {
@@ -41,4 +46,23 @@
 
 .active {
     display: block;
+}
+
+li button.btn {
+    height: 25px;
+    font-size: 18px;
+    border: none;
+    padding: 0;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+ li button.btn:hover {
+    background-color: #f4f4f4;
+    color: black;
+}
+
+.main-buttons {
+    margin-top: 20px;
+    margin-bottom: 15px;
 }

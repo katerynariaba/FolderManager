@@ -2,22 +2,28 @@
     <li>
         <span class="@(Model.Children?.Count > 0 ? "caret" : "")">@(Model.Name)</span>
 
-        <button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#deleteModal" data-url="@Url.Action($"Delete", "Home", new {id=Model.Id})">
-            X
+        
+
+        <button type="button" class="btn btn-outline-success float-right" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home", new {id=Model.Id})">
+            <i class="fas fa-folder-plus"></i>
         </button>
 
-        <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
-            +
+        <button type="button" class="btn btn-outline-warning float-right" data-toggle="ajax-modal" data-target="#editModal" data-url="@Url.Action($"Edit", "Home", new {id=Model.Id})">
+            <i class="fas fa-pencil-alt"></i>
+        </button>
+        
+        <button type="button" class="btn btn-outline-danger float-right" data-toggle="ajax-modal" data-target="#deleteModal" data-url="@Url.Action($"Delete", "Home", new {id=Model.Id})">
+            <i class="fas fa-folder-minus"></i>
         </button>
 
-        <button type="button" class="btn btn-warning" data-toggle="ajax-modal" data-target="#editModal" data-url="@Url.Action($"Edit", "Home", new {id=Model.Id})">
-            edit
+        <button class="btn btn-outline-secondary float-right">
+            <i class="fas fa-sort-alpha-down"></i>
         </button>
-        <button type="button" class="btn btn-light" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
-            sort
+        <button class="btn btn-outline-secondary float-right">
+            <i class="fas fa-sort-alpha-up"></i>
         </button>
-        <button type="button" class="btn btn-light" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
-            change
+        <button type="button" class="btn btn-outline-secondary float-right" data-toggle="ajax-modal" data-target="#moveModal" data-url="@Url.Action($"Move", "Home")">
+            <i class="fas fa-sort"></i>
         </button>
 
         @if (Model.Children?.Count > 0)

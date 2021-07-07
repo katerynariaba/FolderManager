@@ -3,7 +3,7 @@ using FolderManager.Api.Models;
 using FolderManager.Db.DomainModels;
 using FolderManager.Domain.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,15 +11,11 @@ namespace FolderManager.Api.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IFolderService _folderService;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger,
-            IFolderService folderService,
-            IMapper mapper)
+        public HomeController(IFolderService folderService, IMapper mapper)
         {
-            _logger = logger;
             _folderService = folderService;
             _mapper = mapper;
         }
@@ -28,6 +24,8 @@ namespace FolderManager.Api.Controllers
         {
             var folders = await _folderService.GetAllAsync();
             var foldersDto = _mapper.Map<List<FolderViewModel>>(folders);
+
+            ViewBag.folders = new SelectList(folders, "Id", "Name");
 
             return View(foldersDto);
         }
@@ -41,6 +39,8 @@ namespace FolderManager.Api.Controllers
             return PartialView("../Shared/_DeleteDialog", folderDto);
         }
 
+        
+
         [HttpDelete]
         public async Task<IActionResult> Delete(FolderViewModel folderDto)
         {
@@ -51,22 +51,20 @@ namespace FolderManager.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Add(string id)
         {
-            FolderViewModel folder = new FolderViewModel();
-
-            return PartialView("../Shared/_CreateDialog", folder);
+            ViewBag.ParentId = id;
+            return PartialView("../Shared/_CreateDialog", new FolderViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(FolderViewModel folderDto)
+        public async Task<IActionResult> Add(FolderViewModel folderDto, string parentId)
         {
-            var parentId = "1cc20c31-aebb-4b1c-b077-1570a54ad2ff";
             var parent = await _folderService.GetByIdAsync(parentId);
 
             var folder = _mapper.Map<Folder>(folderDto);
             folder.Parent = parent;
-
+            string.IsNullOrEmpty(parentId);
             await _folderService.AddAsync(folder);
 
             return RedirectToAction(nameof(Index));
@@ -86,10 +84,29 @@ namespace FolderManager.Api.Controllers
         public async Task<IActionResult> Edit(FolderViewModel folderDto)
         {
             var folder = _mapper.Map<Folder>(folderDto);
+            //var oldFolder = await _folderService.GetByIdAsync(folder.Id);
+            //folder.Path = oldFolder.Path;
+            //if (ModelState.IsValid)
+            //{
+            //    await _folderService.UpdateAsync(folder);
+            //}
 
             await _folderService.UpdateAsync(folder);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Move()
+        {
+            var folders = await _folderService.GetAllAsync();
+            var foldersDto = _mapper.Map<List<FolderViewModel>>(folders);
+
+            ViewBag.folders = new SelectList(foldersDto, "Id", "Name");
+
+            FolderViewModel folder = new FolderViewModel();
+
+            return PartialView("../Shared/_MoveDialog", folder);
         }
     }
 }

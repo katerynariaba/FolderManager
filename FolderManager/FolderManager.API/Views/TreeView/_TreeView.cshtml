@@ -1,14 +1,18 @@
 ﻿@model IEnumerable<FolderViewModel>
 
-    <div>
-        <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
-            +
+    <div class="main-buttons">
+        <button type="button" class="btn btn-outline-success" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
+            <i class="fas fa-folder-plus"></i>
         </button>
-        <button type="button" class="btn btn-light" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
-            sort all
+        <button type="button" class="btn btn-outline-secondary" id="buttonSort" data-url="@Url.Action($"Sort", "Home")">
+            <i class="fas fa-sort-alpha-down"></i>
         </button>
-        <button type="button" class="btn btn-light" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Home")">
-            open all
+        <button type="button" class="btn btn-outline-secondary">
+            <i class="fas fa-sort-alpha-up"></i>
+        </button>
+        <button type="button" class="btn btn-outline-warning" id="open">
+            @*<i class="far fa-folder"></i>*@
+            <i class="far fa-folder-open"></i>
         </button>
     </div>
 <ul id="myUL" style="text-align: left;">
