@@ -7,7 +7,7 @@ namespace FolderManager.Db.Db
     {
         public FolderManagerDbContext(DbContextOptions options) : base(options)
         {
-            //Database?.Migrate();
+            Database?.Migrate();
         }
 
         public DbSet<Folder> Folders { get; set; }
