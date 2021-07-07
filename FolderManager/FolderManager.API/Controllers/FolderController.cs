@@ -3,7 +3,7 @@ using FolderManager.Api.Models;
 using FolderManager.Db.DomainModels;
 using FolderManager.Domain.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -52,7 +52,7 @@ namespace FolderManager.Api.Controllers
 
             var folder = _mapper.Map<Folder>(folderDto);
             folder.Parent = parent;
-            
+
             await _folderService.AddAsync(folder);
 
             return View("../Home/Index");
@@ -84,6 +84,11 @@ namespace FolderManager.Api.Controllers
         {
             var folder = await _folderService.GetByIdAsync(id);
             var folderDto = _mapper.Map<FolderViewModel>(folder);
+
+            var folders = await _folderService.GetAllAsync();
+            var foldersDto = _mapper.Map<List<FolderViewModel>>(folders);
+
+            ViewBag.folders = new SelectList(foldersDto, "Id", "Name");
 
             return PartialView("../Shared/_MoveDialog", folderDto);
         }

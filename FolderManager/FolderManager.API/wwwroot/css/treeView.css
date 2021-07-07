@@ -11,12 +11,19 @@
 
 #myUL li {
     padding: 5px;
+    position: relative;
 }
 
-#myUL li:hover {
+#myUL li span:hover:after {
+    content: '';
+    width: 100%;
+    height: 32px;
     background-color: #f4f4f4;
     border-color: #f4f4f4;
     border-radius: 5px;
+    position: absolute;
+    left: 0;
+    z-index: -1;
 }
 
 #myUL .tree-buttons{

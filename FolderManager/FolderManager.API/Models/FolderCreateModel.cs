@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace FolderManager.Api.Models
+﻿namespace FolderManager.Api.Models
 {
     public class FolderCreateModel
     {

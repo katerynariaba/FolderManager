@@ -10,9 +10,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="Folder/Move" http-method="patch">
+                <form action="Folder/Move?newParentId=###" http-method="patch">
                     <div class="form-group">
                         <input type="hidden" asp-for="@Model.Id" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <select id="ddlFolders" asp-for="Id" class="form-control" asp-items="@ViewBag.folders" value="@ViewBag.folders"></select>
                     </div>
                 </form>
             </div>

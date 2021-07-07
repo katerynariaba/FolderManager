@@ -1,46 +1,6 @@
 ﻿$(function () {
-    //$("#createForm").validate({
-    //    rules: {
-    //        name: {
-    //            required: true,
-    //            email: true
-    //        }
-    //    },
-    //    messages: {
-    //        name: {
-    //            required: "To pole obowiazkowe",
-    //            email: "email"
-    //        }
-    //    },
-    //});
-
-    $(".validate").validate({
-        rules: {
-            name: "required"
-        },
-        messages: {
-            name: "Please specify your name"
-        }
-    });
-
-    var toggler = document.getElementsByClassName("caret");
-    var i;
-
-    for (i = 0; i < toggler.length; i++) {
-        toggler[i].addEventListener("click", function () {
-            this.parentElement.querySelector(".nested").classList.toggle("active");
-            this.classList.toggle("caret-down");
-        });
-    }
-
-    $("#open").click(function () {
-        for (i = 0; i < toggler.length; i++) {
-            toggler[i].parentElement.querySelector(".nested").classList.toggle("active");
-            toggler[i].classList.toggle("caret-down");
-        }
-     });
-
     var placeholderElement = $('#modal-placeholder');
+
     $('button[data-toggle="ajax-modal"]').click(function (event) {
         var url = $(this).data('url');
         $.get(url).done(function (data) {
@@ -54,9 +14,28 @@
 
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
-        console.log(actionUrl);
         var method = form.attr('http-method');
         var dataToSend = form.serialize();
+
+        var validator = $("form[name='creating']").validate({
+            rules: {
+                name: "required",
+                maxlength: 30
+            },
+            messages: {
+                name: "Please enter name"
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+
+        validator?.form();
+        var errors = validator?.numberOfInvalids();
+
+        if (errors > 0) {
+            return
+        }
 
         var methodName;
         switch (method) {
@@ -76,16 +55,14 @@
                 break;
         }
 
-        console.log(methodName);
-
         $.ajax({
             url: actionUrl,
             type: methodName,
             data: dataToSend,
-            //success: function () {
-            //    placeholderElement.find('.modal').modal('hide');
-            //    location.reload();
-            //}
+            success: function () {
+                placeholderElement.find('.modal').modal('hide');
+                location.reload();
+            }
             
         });
     });
@@ -111,25 +88,20 @@ function sortClick(id, order) {
 }
 
 $(function () {
-    $("form[name='creating']").validate({
-        rules: {
-            name: "required"
-        },
-        messages: {
-            firstname: "Please enter name"
-        },
-        submitHandler: function (form) {
-            form.submit();
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function () {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+
+    $("#open").click(function () {
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].parentElement.querySelector(".nested").classList.toggle("active");
+            toggler[i].classList.toggle("caret-down");
         }
     });
-});
-
-
-$(function () {
-    DragAndDrop.enable("#myUL");
-
-    $(document).on("dblclick", "#myUL *[class*=node]", function () {
-        $(this).beginEditing();
-    });
-
-});
+})

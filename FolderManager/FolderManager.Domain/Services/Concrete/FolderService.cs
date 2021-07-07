@@ -86,12 +86,19 @@ namespace FolderManager.Domain.Services.Concrete
         public async Task MoveAsync(string id, string newParentId)
         {
             var folder = _context.Folders.Find(id);
-            var parent = _context.Folders.Find(newParentId);
+            var newParent = _context.Folders.Find(newParentId);
+            var children = _context.Folders.Where(r => r.Path.Contains(folder.Id) && r.Id != folder.Id);
 
-            folder.Parent = parent;
-            folder.Path = parent.Path + "/" + folder.Id;
+            folder.Parent = newParent;
+            folder.Path = newParent.Path + "/" + folder.Id;
 
-            _context.Folders.Update(folder);
+            foreach (Folder child in children)
+            {
+                var oldPath = child.Path;
+                var lastIndex = oldPath.IndexOf(folder.Id) + folder.Id.Length;
+                child.Path = $"{folder.Path}{oldPath.Substring(lastIndex)}";
+            }
+
             await _context.SaveChangesAsync();
         }
     }
