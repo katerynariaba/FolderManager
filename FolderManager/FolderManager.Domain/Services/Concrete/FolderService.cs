@@ -82,5 +82,17 @@ namespace FolderManager.Domain.Services.Concrete
             _context.Folders.Update(folder);
             await _context.SaveChangesAsync();
         }
+
+        public async Task MoveAsync(string id, string newParentId)
+        {
+            var folder = _context.Folders.Find(id);
+            var parent = _context.Folders.Find(newParentId);
+
+            folder.Parent = parent;
+            folder.Path = parent.Path + "/" + folder.Id;
+
+            _context.Folders.Update(folder);
+            await _context.SaveChangesAsync();
+        }
     }
 }

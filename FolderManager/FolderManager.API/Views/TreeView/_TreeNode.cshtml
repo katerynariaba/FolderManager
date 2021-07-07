@@ -3,8 +3,6 @@
 <li>
     <span class="@(Model.Children?.Count > 0 ? "caret" : "")">@(Model.Name)</span>
 
-
-
     <button type="button" class="btn btn-outline-success float-right" data-toggle="ajax-modal" data-target="#createModal" data-url="@Url.Action($"Add", "Folder", new {id=Model.Id})">
         <i class="fas fa-folder-plus"></i>
     </button>
@@ -23,7 +21,7 @@
     <button class="btn btn-outline-secondary float-right" onclick="sortClick('@Model.Id', 'desc')">
         <i class="fas fa-sort-alpha-up"></i>
     </button>
-    <button type="button" class="btn btn-outline-secondary float-right" data-toggle="ajax-modal" data-target="#moveModal" data-url="@Url.Action($"Move", "Home")">
+    <button type="button" class="btn btn-outline-secondary float-right" data-toggle="ajax-modal" data-target="#moveModal" data-url="@Url.Action($"Move", "Folder", new {id=Model.Id})">
         <i class="fas fa-sort"></i>
     </button>
 

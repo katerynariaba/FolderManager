@@ -78,5 +78,22 @@ namespace FolderManager.Api.Controllers
 
             return View("../Home/Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Move(string id)
+        {
+            var folder = await _folderService.GetByIdAsync(id);
+            var folderDto = _mapper.Map<FolderViewModel>(folder);
+
+            return PartialView("../Shared/_MoveDialog", folderDto);
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> Move(FolderViewModel folderDto)
+        {
+            await _folderService.MoveAsync(folderDto.Id, "73acd9e5-2b6b-4ae5-b678-807de109288d");
+
+            return View("../Home/Index");
+        }
     }
 }

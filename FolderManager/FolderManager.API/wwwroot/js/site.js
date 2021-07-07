@@ -66,8 +66,8 @@
             case 'post':
                 methodName = 'POST';
                 break;
-            case 'putch':
-                methodName = 'PUTCH';
+            case 'patch':
+                methodName = 'PATCH';
                 break;
             case 'put':
                 methodName = 'PUT';
@@ -122,4 +122,14 @@ $(function () {
             form.submit();
         }
     });
+});
+
+
+$(function () {
+    DragAndDrop.enable("#myUL");
+
+    $(document).on("dblclick", "#myUL *[class*=node]", function () {
+        $(this).beginEditing();
+    });
+
 });
