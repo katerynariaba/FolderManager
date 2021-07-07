@@ -1,4 +1,27 @@
 ﻿$(function () {
+    //$("#createForm").validate({
+    //    rules: {
+    //        name: {
+    //            required: true,
+    //            email: true
+    //        }
+    //    },
+    //    messages: {
+    //        name: {
+    //            required: "To pole obowiazkowe",
+    //            email: "email"
+    //        }
+    //    },
+    //});
+
+    $(".validate").validate({
+        rules: {
+            name: "required"
+        },
+        messages: {
+            name: "Please specify your name"
+        }
+    });
 
     var toggler = document.getElementsByClassName("caret");
     var i;
@@ -16,7 +39,6 @@
             toggler[i].classList.toggle("caret-down");
         }
      });
-       
 
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal"]').click(function (event) {
@@ -60,10 +82,10 @@
             url: actionUrl,
             type: methodName,
             data: dataToSend,
-            success: function () {
-                placeholderElement.find('.modal').modal('hide');
-                location.reload();
-            }
+            //success: function () {
+            //    placeholderElement.find('.modal').modal('hide');
+            //    location.reload();
+            //}
             
         });
     });
@@ -87,3 +109,17 @@ function sortClick(id, order) {
         }
     }
 }
+
+$(function () {
+    $("form[name='creating']").validate({
+        rules: {
+            name: "required"
+        },
+        messages: {
+            firstname: "Please enter name"
+        },
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+});

@@ -10,3 +10,59 @@
         await Html.RenderPartialAsync("../TreeView/_TreeView", Model);
     }
 </div>
+
+<div class="container">
+    <h2>Registration</h2>
+    <form action="" name="registration">
+
+        <label for="firstname">First Name</label>
+        <input type="text" name="firstname" id="firstname" class="form-control" />
+
+        <label for="lastname">Last Name</label>
+        <input type="text" name="lastname" id="lastname" class="form-control" />
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" class="form-control" />
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" />
+
+        <button type="submit">Register</button>
+
+    </form>
+</div>
+
+<div class="fade " id="createModal" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createTitle">Create a new folder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @*<form action="Folder/Add?parentId=@ViewBag.ParentId" http-method="post" name="creating">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">Name</label>
+                            <input type="text" asp-for="Name" class="form-control" name="name" id="name" />
+                        </div>
+                        <button type="submit" class="btn btn-success" data-save="modal">Create</button>
+                    </form>*@
+
+                <form action="#" http-method="post" name="creating">
+                    <div class="form-group">
+                        <label class="control-label">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" />
+                    </div>
+                    <button type="submit" class="btn btn-success" data-save="modal">Create</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-save="modal">Create</button>
+            </div>
+        </div>
+    </div>
+</div>

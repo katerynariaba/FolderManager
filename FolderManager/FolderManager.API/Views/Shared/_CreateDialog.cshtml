@@ -11,14 +11,20 @@
             </div>
             <div class="modal-body">
 
-                <form action="Folder/Add?parentId=@ViewBag.ParentId" http-method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*<form action="Folder/Add?parentId=@ViewBag.ParentId" http-method="post" name="creating">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Name</label>
+                <input type="text" asp-for="Name" class="form-control" name="name" id="name" />
+            </div>
+            <button type="submit" class="btn btn-success" data-save="modal">Create</button>
+        </form>*@
 
+                <form action="#" http-method="post" name="creating">
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label">Name</label>
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <label class="control-label">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" />
                     </div>
+                    <button type="submit" class="btn btn-success" data-save="modal">Create</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -29,6 +35,3 @@
     </div>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

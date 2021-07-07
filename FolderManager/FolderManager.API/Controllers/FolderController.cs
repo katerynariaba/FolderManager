@@ -52,6 +52,7 @@ namespace FolderManager.Api.Controllers
 
             var folder = _mapper.Map<Folder>(folderDto);
             folder.Parent = parent;
+            
             await _folderService.AddAsync(folder);
 
             return View("../Home/Index");
@@ -63,6 +64,7 @@ namespace FolderManager.Api.Controllers
             var folder = await _folderService.GetByIdAsync(id);
             var folderDto = _mapper.Map<FolderViewModel>(folder);
             ViewBag.ParentId = folderDto.Parent.Id;
+
 
             return PartialView("../Shared/_EditDialog", folderDto);
         }
